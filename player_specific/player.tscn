@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://dfkfh4c0lkxqq"]
+
+[ext_resource type="Script" uid="uid://bnpv24110eml2" path="res://player_specific/player.gd" id="1_j4r2i"]
+[ext_resource type="Texture2D" uid="uid://dcfghcn4adril" path="res://icon.svg" id="2_aygf1"]
+[ext_resource type="Script" uid="uid://bbiwv63nv4imi" path="res://player_specific/state_machine.gd" id="3_2gq8t"]
+[ext_resource type="Script" uid="uid://dkkmrd5rktlb7" path="res://player_specific/state_base.gd" id="4_acy36"]
+[ext_resource type="Script" uid="uid://47mwhut6kwo3" path="res://player_specific/state_idle.gd" id="5_ex4x1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e6km3"]
+atlas = ExtResource("2_aygf1")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wyeb1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e6km3")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hdrrh"]
+
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=1599413973]
+script = ExtResource("1_j4r2i")
+SPEED = null
+JUMP_VELOCITY = null
+ground_speed = null
+ground_accel = null
+air_speed = null
+air_accel = null
+
+[node name="Animated_superior" type="AnimatedSprite2D" parent="." unique_id=138743295]
+scale = Vector2(0.14, 0.14)
+sprite_frames = SubResource("SpriteFrames_wyeb1")
+
+[node name="Collision_superior" type="CollisionShape2D" parent="." unique_id=63657297]
+shape = SubResource("RectangleShape2D_hdrrh")
+
+[node name="StateMachine" type="Node2D" parent="." unique_id=1563372105 node_paths=PackedStringArray("default_state")]
+script = ExtResource("3_2gq8t")
+default_state = NodePath("StateBase")
+
+[node name="StateBase" type="Node2D" parent="StateMachine" unique_id=617589259]
+script = ExtResource("4_acy36")
+
+[node name="StateIdle" type="Node2D" parent="StateMachine/StateBase" unique_id=520726146]
+script = ExtResource("5_ex4x1")
+
+[node name="State_walking_ground" type="Node2D" parent="StateMachine" unique_id=1017959845]

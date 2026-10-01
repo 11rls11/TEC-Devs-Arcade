@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://3hrlebv58xm"]
+
+[ext_resource type="Script" uid="uid://bbiwv63nv4imi" path="res://player_specific/state_machine.gd" id="1_35xbh"]
+[ext_resource type="Script" uid="uid://dkkmrd5rktlb7" path="res://player_specific/state_base.gd" id="2_wbto3"]
+[ext_resource type="Script" uid="uid://47mwhut6kwo3" path="res://player_specific/state_idle.gd" id="3_wbto3"]
+
+[node name="StateMachine" type="Node2D" unique_id=1563372105 node_paths=PackedStringArray("default_state")]
+script = ExtResource("1_35xbh")
+default_state = NodePath("StateBase")
+
+[node name="StateBase" type="Node2D" parent="." unique_id=617589259]
+script = ExtResource("2_wbto3")
+
+[node name="StateIdle" type="Node2D" parent="." unique_id=520726146]
+script = ExtResource("3_wbto3")
+SPEED = null
+JUMP_VELOCITY = null
+ground_speed = null
+ground_accel = null
+air_speed = null
+air_accel = null
+velocity = null
