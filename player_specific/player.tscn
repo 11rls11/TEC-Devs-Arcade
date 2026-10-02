@@ -5,6 +5,9 @@
 [ext_resource type="Script" uid="uid://bbiwv63nv4imi" path="res://player_specific/state_machine.gd" id="3_2gq8t"]
 [ext_resource type="Script" uid="uid://dkkmrd5rktlb7" path="res://player_specific/state_base.gd" id="4_acy36"]
 [ext_resource type="Script" uid="uid://47mwhut6kwo3" path="res://player_specific/state_idle.gd" id="5_ex4x1"]
+[ext_resource type="Script" uid="uid://d3o5nj78ekbqd" path="res://player_specific/state_walking_ground.gd" id="6_ex4x1"]
+[ext_resource type="Script" uid="uid://dhiv0e2iexmaf" path="res://player_specific/state_air.gd" id="7_2i738"]
+[ext_resource type="Script" uid="uid://cswhshs1jnctp" path="res://player_specific/state_jump.gd" id="8_2i738"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e6km3"]
 atlas = ExtResource("2_aygf1")
@@ -25,12 +28,6 @@ animations = [{
 
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=1599413973]
 script = ExtResource("1_j4r2i")
-SPEED = null
-JUMP_VELOCITY = null
-ground_speed = null
-ground_accel = null
-air_speed = null
-air_accel = null
 
 [node name="Animated_superior" type="AnimatedSprite2D" parent="." unique_id=138743295]
 scale = Vector2(0.14, 0.14)
@@ -45,8 +42,17 @@ default_state = NodePath("StateBase")
 
 [node name="StateBase" type="Node2D" parent="StateMachine" unique_id=617589259]
 script = ExtResource("4_acy36")
+ground_accel = 3.0
+air_accel = 1500.0
 
-[node name="StateIdle" type="Node2D" parent="StateMachine/StateBase" unique_id=520726146]
+[node name="StateJump" type="Node2D" parent="StateMachine" unique_id=1054923094]
+script = ExtResource("8_2i738")
+
+[node name="StateAir" type="Node2D" parent="StateMachine" unique_id=1528962312]
+script = ExtResource("7_2i738")
+
+[node name="StateIdle" type="Node2D" parent="StateMachine" unique_id=520726146]
 script = ExtResource("5_ex4x1")
 
 [node name="State_walking_ground" type="Node2D" parent="StateMachine" unique_id=1017959845]
+script = ExtResource("6_ex4x1")

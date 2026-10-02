@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://fiths5l0jetd"
+path="res://.godot/imported/2-09. Titanic Tower Act 1.mp3-253104f3352709bf8abf20468c4c58ff.mp3str"
+
+[deps]
+
+source_file="res://sound/music/2-09. Titanic Tower Act 1.mp3"
+dest_files=["res://.godot/imported/2-09. Titanic Tower Act 1.mp3-253104f3352709bf8abf20468c4c58ff.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

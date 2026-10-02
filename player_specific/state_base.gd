@@ -1,6 +1,7 @@
 @icon("uid://8vbfp35d1md4")
 class_name StateBase extends Node2D
 
+#region _________________________________ exports ______________________________________________
 @export_category("general_mobility")
 @export var SPEED = 300.0
 @export var JUMP_VELOCITY = -400.0
@@ -14,23 +15,35 @@ class_name StateBase extends Node2D
 @export var air_speed := 300
 @export var air_accel := 1.5
 
+#endregion
+
+#region ______________________________ onready ________________________________________________
+
 @onready var controlled_node: = $"../.."
+@onready var sprite = $"../../Node2D/AnimatedSprite2D"
+
+#endregion
 
 var state_machine:StateMachine
-@export var velocity = 5
+
+#region ________________________________ process __________________________________________
 
 var has_second_jumped = false
-
+var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var direction = 1
 var input_dir
 
-@onready var sprite = $"../../Node2D/AnimatedSprite2D"
+
+#endregion
 
 func start():
-	
+	print("stateIdle")
 	state_machine._change_to("StateIdle")
 	
+	
 func on_process(delta):
-	input_dir
-	if Input.get_axis("move_left","move_right") != 0:
-		direction = Input.get_axis("move_left","move_right") 
+	input_dir = Input.get_axis("move_left","move_right") 
+	if input_dir != 0:
+		direction = input_dir
+		state_machine._change_to("State_walking_ground")
+	

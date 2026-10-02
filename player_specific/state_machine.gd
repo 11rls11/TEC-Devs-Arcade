@@ -6,16 +6,16 @@ class_name StateMachine extends Node
 
 
 
-var player_sprite = get_parent().player_sprite
-var player_collision = get_parent().player_collision
+#var player_sprite : AnimatedSprite2D 
+#var player_collision : CollisionShape2D 
 
 #endregion
 
 
 
 #region ________________________ runtime ________________________________
-
-
+var counter:= 0
+#endregion
 
 
 
@@ -26,6 +26,9 @@ var previous_state: StateBase = null  # Nuevo: guardar estado anterior
 
 func _ready():
 	current_state = default_state
+	
+	#player_sprite = get_parent().player_sprite
+	#player_collision = get_parent().player_collision
 	_state_start()
 
 func _process(delta: float) -> void:
@@ -49,7 +52,10 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		current_state.on_unhandled_key_input(event)
 
 func _state_start() -> void:
-	prints("StateMachine:", controlled_node.name, "-->", "start state:", current_state.name)
+	print("StateMachine:", controlled_node.name,)
+	prints( "-->", "start state:", current_state.name)
+	
+	#print(counter)
 	
 	current_state.controlled_node = controlled_node
 	current_state.state_machine = self

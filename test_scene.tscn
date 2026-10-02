@@ -1,23 +1,27 @@
 [gd_scene format=3 uid="uid://k7nkgks0fquq"]
 
+[ext_resource type="Script" uid="uid://b5ilwmgtbshqa" path="res://test_scene.gd" id="1_coq8p"]
 [ext_resource type="Texture2D" uid="uid://dcfghcn4adril" path="res://icon.svg" id="1_ia1lp"]
 [ext_resource type="PackedScene" uid="uid://dfkfh4c0lkxqq" path="res://player_specific/player.tscn" id="1_uhqqe"]
+[ext_resource type="AudioStream" uid="uid://fiths5l0jetd" path="res://sound/music/2-09. Titanic Tower Act 1.mp3" id="2_2nij2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wyeb1"]
 size = Vector2(127.5, 128)
 
 [node name="Node" type="Node" unique_id=1917094119]
+script = ExtResource("1_coq8p")
+current_theme = ExtResource("2_2nij2")
 
-[node name="RigidBody2D" type="RigidBody2D" parent="." unique_id=645986129]
+[node name="platform" type="StaticBody2D" parent="." unique_id=1942004010]
 scale = Vector2(30, 1)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D" unique_id=890433695]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="platform" unique_id=890433695]
 shape = SubResource("RectangleShape2D_wyeb1")
 
-[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D/CollisionShape2D" unique_id=52182816]
+[node name="Sprite2D" type="Sprite2D" parent="platform/CollisionShape2D" unique_id=52182816]
 texture = ExtResource("1_ia1lp")
 
 [node name="CharacterBody2D" parent="." unique_id=1599413973 instance=ExtResource("1_uhqqe")]
-position = Vector2(0, -78)
+position = Vector2(0, -95)
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D" unique_id=22806240]
