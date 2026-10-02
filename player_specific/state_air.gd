@@ -8,8 +8,12 @@ func start():
 	#state_machine._change_to("StateAir")
 	
 func on_process(delta):
+	_get_directional_input(false)
+	_apply_gravity(delta)
 	if controlled_node.is_on_floor():
 		state_machine._change_to("StateIdle")
+	
+	controlled_node.velocity.x = move_toward(controlled_node.velocity.x, air_speed * input_dir, (air_accel * 1000) * delta )
+
+func _apply_gravity(delta):
 	controlled_node.velocity.y += gravity * delta
-	if Input.get_axis("move_left","move_right") != 0:
-		direction = Input.get_axis("move_left","move_right")

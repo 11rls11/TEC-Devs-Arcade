@@ -42,8 +42,15 @@ func start():
 	
 	
 func on_process(delta):
-	input_dir = Input.get_axis("move_left","move_right") 
+	_get_directional_input(true)
 	if input_dir != 0:
 		direction = input_dir
 		state_machine._change_to("State_walking_ground")
 	
+
+func _get_directional_input(flip_with_input_direction: bool):
+	input_dir = Input.get_axis("move_left","move_right") 
+	
+
+func _handle_jump():
+	state_machine._change_to("StateJump")

@@ -3,11 +3,8 @@ extends StateAir
 
 # Called when the node enters the scene tree for the first time.
 func start():
-	
-	state_machine._change_to("StateJump")
+	controlled_node.velocity.y += JUMP_VELOCITY
 	
 func on_process(delta):
 	
-		
-	if Input.get_axis("move_left","move_right") != 0:
-		direction = Input.get_axis("move_left","move_right")
+	state_machine._change_to("StateAir")

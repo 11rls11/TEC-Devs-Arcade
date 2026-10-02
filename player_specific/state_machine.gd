@@ -6,8 +6,8 @@ class_name StateMachine extends Node
 
 
 
-#var player_sprite : AnimatedSprite2D 
-#var player_collision : CollisionShape2D 
+var player_sprite : AnimatedSprite2D 
+var player_collision : CollisionShape2D 
 
 #endregion
 
@@ -27,8 +27,8 @@ var previous_state: StateBase = null  # Nuevo: guardar estado anterior
 func _ready():
 	current_state = default_state
 	
-	#player_sprite = get_parent().player_sprite
-	#player_collision = get_parent().player_collision
+	player_sprite = get_parent().player_sprite
+	player_collision = get_parent().player_collision
 	_state_start()
 
 func _process(delta: float) -> void:
