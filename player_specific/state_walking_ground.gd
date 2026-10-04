@@ -8,6 +8,7 @@ func start():
 	#state_machine._change_to("State_walking_ground")
 	
 func on_process(delta):
+	_call_suitcase()
 	_get_directional_input(true)
 	if not controlled_node.is_on_floor():
 		_handle_unflooring()

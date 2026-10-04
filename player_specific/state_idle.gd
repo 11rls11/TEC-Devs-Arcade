@@ -14,6 +14,7 @@ func start():
 	#state_machine._change_to("StateIdle")
 	
 func on_process(delta):
+	_call_suitcase()
 	if not controlled_node.is_on_floor():
 		_handle_unflooring()
 	else:

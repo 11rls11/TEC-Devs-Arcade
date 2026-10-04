@@ -26,7 +26,7 @@ animations = [{
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hdrrh"]
 
-[node name="CharacterBody2D" type="CharacterBody2D" unique_id=1599413973]
+[node name="player" type="CharacterBody2D" unique_id=1599413973 groups=["player1"]]
 script = ExtResource("1_j4r2i")
 
 [node name="Animated_superior" type="AnimatedSprite2D" parent="." unique_id=138743295]
@@ -56,9 +56,3 @@ script = ExtResource("5_ex4x1")
 
 [node name="State_walking_ground" type="Node2D" parent="StateMachine" unique_id=1017959845]
 script = ExtResource("6_ex4x1")
-SPEED = null
-JUMP_VELOCITY = null
-ground_speed = null
-ground_accel = null
-air_speed = null
-air_accel = null

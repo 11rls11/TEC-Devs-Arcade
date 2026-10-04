@@ -8,6 +8,7 @@ func start():
 	#state_machine._change_to("StateAir")
 	
 func on_process(delta):
+	_call_suitcase()
 	_get_directional_input(false)
 	_apply_gravity(delta)
 	if controlled_node.is_on_floor():

@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://cnw0r770waemn"]
+
+[ext_resource type="Script" uid="uid://d38qgytkr458r" path="res://boomerang_test.gd" id="1_8evv3"]
+[ext_resource type="PackedScene" uid="uid://83lbwqnoyfwg" path="res://player_specific/suitcase/suitcase_boomer_aang.tscn" id="2_mqhhf"]
+
+[node name="test" type="Node2D" unique_id=2023018403]
+script = ExtResource("1_8evv3")
+suitcase = ExtResource("2_mqhhf")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1621790948]

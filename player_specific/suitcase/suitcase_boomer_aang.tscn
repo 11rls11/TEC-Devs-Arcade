@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://83lbwqnoyfwg"]
+
+[ext_resource type="Script" uid="uid://qjslt336xnai" path="res://player_specific/suitcase/suitcase_boomer_aang.gd" id="1_467x8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wyeb1"]
+
+[node name="suitcase_boomer-aang" type="Node2D" unique_id=1706985902]
+script = ExtResource("1_467x8")
+Speed = 10
+accel = 0.05
+base_distance = 150
+rot_accel = 10.0
+has_returned_range = 20.0
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1161140464]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=430921693]
+shape = SubResource("RectangleShape2D_wyeb1")
+
+[node name="direction" type="RayCast2D" parent="." unique_id=1951993411]
+target_position = Vector2(15, 0)
