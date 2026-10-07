@@ -10,13 +10,19 @@ class_name StateBase extends Node2D
 @export_group("ground")
 @export var ground_speed := 300
 @export var ground_accel := 1.5
+@export_subgroup("cayote_time")
+@export var cayote_time_duration := 1.5
+
 
 @export_group("air")
 @export var air_speed := 300
 @export var air_accel := 1.5
+@export_subgroup("jump buffer")
+@export var jump_buffer_duration := 1.5
 
 @export_category("suitcase")
 @export var suitcase : PackedScene = preload("uid://83lbwqnoyfwg")
+
 
 #endregion
 
@@ -38,6 +44,8 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var direction = 1
 var input_dir
 
+var cayote_timer := 0.0
+var jump_buffer_timer := 0.0
 
 #endregion
 
@@ -59,6 +67,7 @@ func _get_directional_input(flip_with_input_direction: bool):
 	
 
 func _handle_jump():
+	jump_buffer_timer = 0.0
 	state_machine._change_to("StateJump")
 
 func _call_suitcase():

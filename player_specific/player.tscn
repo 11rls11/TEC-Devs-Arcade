@@ -50,9 +50,19 @@ script = ExtResource("8_2i738")
 
 [node name="StateAir" type="Node2D" parent="StateMachine" unique_id=1528962312]
 script = ExtResource("7_2i738")
+SPEED = null
+JUMP_VELOCITY = null
+ground_speed = null
+ground_accel = null
+cayote_time_duration = null
+air_speed = null
+air_accel = null
+jump_buffer_duration = null
+suitcase = null
 
 [node name="StateIdle" type="Node2D" parent="StateMachine" unique_id=520726146]
 script = ExtResource("5_ex4x1")
 
 [node name="State_walking_ground" type="Node2D" parent="StateMachine" unique_id=1017959845]
 script = ExtResource("6_ex4x1")
+cayote_time_duration = 0.05
