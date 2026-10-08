@@ -21,7 +21,8 @@ class_name StateBase extends Node2D
 @export var jump_buffer_duration := 1.5
 
 @export_category("suitcase")
-@export var suitcase : PackedScene = preload("uid://83lbwqnoyfwg")
+@export var Bounce_force := -500
+const  suitcase : PackedScene = preload("uid://83lbwqnoyfwg")
 
 
 #endregion

@@ -2,6 +2,8 @@ extends Node2D
 
 #region _____________________ exports _________________________________________
 
+
+
 @export_category("movement")
 @export var Speed: int
 @export var accel: float
@@ -10,6 +12,8 @@ extends Node2D
 
 @export_category("other")
 @export var has_returned_range : float
+
+
 #endregion
 
 #region ______________________ onreadies ______________________________________
@@ -58,7 +62,7 @@ func _process(delta: float) -> void:
 		return_to = caller.global_position
 		after_point(delta, direction)
 		if (return_to - global_position).length() <= has_returned_range:
-			queue_free()
+			_on_exit()
 	if  abs(origin.x - global_position.x) >= base_distance:
 		returning = true
 		
@@ -87,3 +91,9 @@ func after_point(delta, direction):
 	
 	velocity.y = move_toward(velocity.y, direction.y * Speed, accel * 1000 * delta)
 	velocity.x = move_toward(velocity.x, direction.x * Speed, accel  * 1000 * delta)
+
+func _on_exit():
+	if global_position.y > return_to.y:
+		var caller_machine = caller.get_node("StateMachine")
+		caller_machine._change_to("State_suitcase_bounce")
+	queue_free()

@@ -9,8 +9,9 @@ func start():
 	
 func on_process(delta):
 	
-	_call_suitcase()
 	_get_directional_input(false)
+	_call_suitcase()
+	
 	_apply_gravity(delta)
 	_get_jump_buffer(delta)
 	if controlled_node.is_on_floor():

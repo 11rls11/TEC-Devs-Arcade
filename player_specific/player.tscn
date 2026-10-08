@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://d3o5nj78ekbqd" path="res://player_specific/state_walking_ground.gd" id="6_ex4x1"]
 [ext_resource type="Script" uid="uid://dhiv0e2iexmaf" path="res://player_specific/state_air.gd" id="7_2i738"]
 [ext_resource type="Script" uid="uid://cswhshs1jnctp" path="res://player_specific/state_jump.gd" id="8_2i738"]
+[ext_resource type="Script" uid="uid://kc8i7lffmnvq" path="res://player_specific/state_suitcase_bounce.gd" id="9_sb3ko"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e6km3"]
 atlas = ExtResource("2_aygf1")
@@ -46,10 +47,21 @@ ground_accel = 3.0
 air_accel = 1500.0
 
 [node name="StateJump" type="Node2D" parent="StateMachine" unique_id=1054923094]
+visible = false
 script = ExtResource("8_2i738")
 
 [node name="StateAir" type="Node2D" parent="StateMachine" unique_id=1528962312]
 script = ExtResource("7_2i738")
+
+[node name="StateIdle" type="Node2D" parent="StateMachine" unique_id=520726146]
+script = ExtResource("5_ex4x1")
+
+[node name="State_walking_ground" type="Node2D" parent="StateMachine" unique_id=1017959845]
+script = ExtResource("6_ex4x1")
+cayote_time_duration = 0.05
+
+[node name="State_suitcase_bounce" type="Node2D" parent="StateMachine" unique_id=121429783]
+script = ExtResource("9_sb3ko")
 SPEED = null
 JUMP_VELOCITY = null
 ground_speed = null
@@ -58,11 +70,5 @@ cayote_time_duration = null
 air_speed = null
 air_accel = null
 jump_buffer_duration = null
-suitcase = null
-
-[node name="StateIdle" type="Node2D" parent="StateMachine" unique_id=520726146]
-script = ExtResource("5_ex4x1")
-
-[node name="State_walking_ground" type="Node2D" parent="StateMachine" unique_id=1017959845]
-script = ExtResource("6_ex4x1")
-cayote_time_duration = 0.05
+Bounce_force = null
+metadata/_custom_type_script = "uid://dhiv0e2iexmaf"
