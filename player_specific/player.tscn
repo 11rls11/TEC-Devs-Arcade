@@ -43,11 +43,9 @@ default_state = NodePath("StateBase")
 
 [node name="StateBase" type="Node2D" parent="StateMachine" unique_id=617589259]
 script = ExtResource("4_acy36")
-ground_accel = 3.0
-air_accel = 1500.0
+air_accel = 100.0
 
 [node name="StateJump" type="Node2D" parent="StateMachine" unique_id=1054923094]
-visible = false
 script = ExtResource("8_2i738")
 
 [node name="StateAir" type="Node2D" parent="StateMachine" unique_id=1528962312]
@@ -58,17 +56,11 @@ script = ExtResource("5_ex4x1")
 
 [node name="State_walking_ground" type="Node2D" parent="StateMachine" unique_id=1017959845]
 script = ExtResource("6_ex4x1")
+JUMP_VELOCITY = -1500.0
 cayote_time_duration = 0.05
+air_accel = 50.0
+Bounce_force = -1300
 
 [node name="State_suitcase_bounce" type="Node2D" parent="StateMachine" unique_id=121429783]
 script = ExtResource("9_sb3ko")
-SPEED = null
-JUMP_VELOCITY = null
-ground_speed = null
-ground_accel = null
-cayote_time_duration = null
-air_speed = null
-air_accel = null
-jump_buffer_duration = null
-Bounce_force = null
 metadata/_custom_type_script = "uid://dhiv0e2iexmaf"

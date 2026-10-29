@@ -1,4 +1,4 @@
-extends StateIdle
+class_name State_walking_ground extends StateIdle
 
 
 # Called when the node enters the scene tree for the first time.

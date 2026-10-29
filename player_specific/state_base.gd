@@ -9,7 +9,7 @@ class_name StateBase extends Node2D
 @export_category("state specific")
 @export_group("ground")
 @export var ground_speed := 300
-@export var ground_accel := 1.5
+@export var ground_accel := 100
 @export_subgroup("cayote_time")
 @export var cayote_time_duration := 1.5
 
@@ -17,6 +17,10 @@ class_name StateBase extends Node2D
 @export_group("air")
 @export var air_speed := 300
 @export var air_accel := 1.5
+
+
+
+
 @export_subgroup("jump buffer")
 @export var jump_buffer_duration := 1.5
 

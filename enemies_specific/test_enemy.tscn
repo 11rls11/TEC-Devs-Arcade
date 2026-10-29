@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://vr5frrrs41l5"]
+
+[ext_resource type="Texture2D" uid="uid://de3h440qni22d" path="res://enemies_specific/fuck ass bitch.png" id="1_ga0ge"]
+
+[sub_resource type="GDScript" id="GDScript_ga0ge"]
+script/source = "extends CharacterBody2D
+
+#region ____________________________________ export _______________________________
+@export_group(\"velocity specific\")
+@export var ground_drag := 1.0
+
+@export_group(\"on death specific\")
+@export_range(1.0,2.0)
+var fucked_scale_multiplier := 1.0
+
+#endregion
+
+#region ___________________________________ onready __________________________________
+
+@onready var sprite_2d: Sprite2D = $Sprite2D
+@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
+
+
+#endregion
+
+#region ___________________________________ runtime ______________________________________
+
+var got_fucked := false
+var dissapear := false
+
+#endregion
+
+var gravity = ProjectSettings.get_setting(\"physics/2d/default_gravity\")
+
+func _physics_process(delta: float) -> void:
+	#if got_fucked == true:
+		#print(\"get fucked idiot\")
+	if is_on_floor():
+		velocity.x = move_toward(velocity.x, 0 , (ground_drag * 1000) * delta )
+		#velocity.y = 0
+		if dissapear == true:
+			queue_free()
+		
+	else:
+		velocity.y += gravity * delta
+		if got_fucked == true:
+			collision_layer = 8
+			
+			sprite_2d.rotate(3)
+			sprite_2d.scale *= fucked_scale_multiplier
+			dissapear = true
+	move_and_slide()
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wyeb1"]
+size = Vector2(128, 125)
+
+[node name="test_enemy" type="CharacterBody2D" unique_id=920223668 groups=["enemy"]]
+script = SubResource("GDScript_ga0ge")
+fucked_scale_multiplier = 1.02
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=809458893]
+z_index = 1
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_wyeb1")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=73396118]
+position = Vector2(0, 3)
+scale = Vector2(0.28635347, 0.29530203)
+texture = ExtResource("1_ga0ge")

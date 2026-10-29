@@ -1,6 +1,10 @@
 @icon("uid://cetw14pdrhxun")
 class_name StateAir extends StateBase
 
+@export_group("gravity")
+@export var gravity_multiplier := 1.5
+
+
 
 # Called when the node enters the scene tree for the first time.
 func start():
@@ -20,7 +24,7 @@ func on_process(delta):
 	controlled_node.velocity.x = move_toward(controlled_node.velocity.x, air_speed * input_dir, (air_accel * 1000) * delta )
 
 func _apply_gravity(delta):
-	controlled_node.velocity.y += gravity * delta
+	controlled_node.velocity.y += gravity * gravity_multiplier * delta
 
 func _get_jump_buffer(delta):
 	if Input.is_action_just_pressed("jump"):

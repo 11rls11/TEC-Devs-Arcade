@@ -3,7 +3,10 @@ extends StateAir
 
 # Called when the node enters the scene tree for the first time.
 func start():
-	controlled_node.velocity.y += Bounce_force
+	if controlled_node.velocity.y < Bounce_force:
+		controlled_node.velocity.y += Bounce_force
+	else:
+		controlled_node.velocity.y = Bounce_force
 	
 func on_process(delta):
 	

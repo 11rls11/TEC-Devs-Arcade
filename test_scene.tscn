@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dcfghcn4adril" path="res://icon.svg" id="1_ia1lp"]
 [ext_resource type="PackedScene" uid="uid://dfkfh4c0lkxqq" path="res://player_specific/player.tscn" id="1_uhqqe"]
 [ext_resource type="AudioStream" uid="uid://fiths5l0jetd" path="res://sound/music/2-09. Titanic Tower Act 1.mp3" id="2_2nij2"]
+[ext_resource type="PackedScene" uid="uid://vr5frrrs41l5" path="res://enemies_specific/test_enemy.tscn" id="5_2nij2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wyeb1"]
 size = Vector2(127.5, 128)
@@ -25,3 +26,10 @@ texture = ExtResource("1_ia1lp")
 position = Vector2(0, -95)
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D" unique_id=22806240]
+zoom = Vector2(2.5, 2.5)
+position_smoothing_enabled = true
+position_smoothing_speed = 5.705
+
+[node name="test_enemy" parent="." unique_id=920223668 instance=ExtResource("5_2nij2")]
+position = Vector2(-213, -182)
+scale = Vector2(0.25, 0.25)

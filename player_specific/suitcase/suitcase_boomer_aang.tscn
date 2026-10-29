@@ -19,3 +19,5 @@ shape = SubResource("RectangleShape2D_wyeb1")
 
 [node name="direction" type="RayCast2D" parent="." unique_id=1951993411]
 target_position = Vector2(15, 0)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
