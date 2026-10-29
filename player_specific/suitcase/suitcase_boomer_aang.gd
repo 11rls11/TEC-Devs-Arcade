@@ -92,6 +92,7 @@ func after_point(delta, direction):
 		
 		velocity.y = move_toward(velocity.y, direction.y * Speed, accel * 1000 * delta)
 		velocity.x = move_toward(velocity.x, direction.x * Speed, accel  * 1000 * delta)
+		#print(velocity)
 	elif elapsedTimeAfter > 1.5:
 		var target_direction : Vector2 = (return_to - global_position).normalized()
 		var target_angle : float = fposmod(target_direction.angle() * sign(target_direction.x),  6.28319) * sign(target_direction.x)
@@ -103,7 +104,7 @@ func after_point(delta, direction):
 		
 		velocity.y = move_toward(velocity.y, direction.y * Speed, accel * 1000 * delta)
 		velocity.x = move_toward(velocity.x, direction.x * Speed, accel  * 1000 * delta)
-			#print(target_direction)
+		
 	else:
 		velocity.x = move_toward(velocity.x, 0.0, delta*9)
 
@@ -114,15 +115,23 @@ func _on_return():
 	queue_free()
 
 func _on_contact(body):
-	#var body_machine = body.get_node("StateMachine")
-	#body_machine._change_to("StateGetFucked")
+	var body_machine = body.get_node("StateMachine_e")
+	body_machine._change_to("StateGetFucked")
+	#body.position.y += -0.1
+	print(velocity)
+	body.velocity = velocity * 10 + Vector2(0.0, -300)
+	returning = true
+	var turn_angle_to_vector = Vector2.from_angle(facing_direction.rotation)
+	var bouncer = turn_angle_to_vector.bounce(facing_direction.get_collision_normal())
+	
+	facing_direction.rotation =  fposmod( bouncer.angle() * sign(bouncer.x),  6.28319) * sign(bouncer.x)
+	velocity *= -bouncer
+	#print(velocity)
+	
 	pass
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("enemy"):
-		body.position.y += -0.1
-		body.velocity = velocity + Vector2(0.0, -500)
-		body.got_fucked = true
-		queue_free()
+		_on_contact(body)
 	pass # Replace with function body.

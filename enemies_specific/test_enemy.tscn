@@ -1,24 +1,16 @@
 [gd_scene format=3 uid="uid://vr5frrrs41l5"]
 
 [ext_resource type="Texture2D" uid="uid://de3h440qni22d" path="res://enemies_specific/fuck ass bitch.png" id="1_ga0ge"]
+[ext_resource type="Script" uid="uid://cuy7ewp2mtdss" path="res://enemies_specific/state_machine_enemies.gd" id="2_8cbae"]
+[ext_resource type="Script" uid="uid://s14mqocmnqif" path="res://enemies_specific/state_base_e.gd" id="3_m1q75"]
+[ext_resource type="Script" uid="uid://b5jmke74poif5" path="res://enemies_specific/state_idle_e.gd" id="4_bbhr2"]
+[ext_resource type="Script" uid="uid://etigmwbpewep" path="res://enemies_specific/state_air_e.gd" id="4_nndku"]
+[ext_resource type="Script" uid="uid://dpvtmsi2pya75" path="res://enemies_specific/state_get_fucked.gd" id="5_bbhr2"]
 
 [sub_resource type="GDScript" id="GDScript_ga0ge"]
 script/source = "extends CharacterBody2D
 
-#region ____________________________________ export _______________________________
-@export_group(\"velocity specific\")
-@export var ground_drag := 1.0
 
-@export_group(\"on death specific\")
-@export_range(1.0,2.0)
-var fucked_scale_multiplier := 1.0
-
-#endregion
-
-#region ___________________________________ onready __________________________________
-
-@onready var sprite_2d: Sprite2D = $Sprite2D
-@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 
 
 #endregion
@@ -33,22 +25,9 @@ var dissapear := false
 var gravity = ProjectSettings.get_setting(\"physics/2d/default_gravity\")
 
 func _physics_process(delta: float) -> void:
-	#if got_fucked == true:
-		#print(\"get fucked idiot\")
-	if is_on_floor():
-		velocity.x = move_toward(velocity.x, 0 , (ground_drag * 1000) * delta )
-		#velocity.y = 0
-		if dissapear == true:
-			queue_free()
-		
-	else:
-		velocity.y += gravity * delta
-		if got_fucked == true:
-			collision_layer = 8
-			
-			sprite_2d.rotate(3)
-			sprite_2d.scale *= fucked_scale_multiplier
-			dissapear = true
+	#if has_node(\"StateMachine_e\"): # Make sure this matches your node's layout name
+	#	$StateMachine_e._physics_process(delta)
+	#	print(\"does have that shit\")
 	move_and_slide()
 "
 
@@ -57,7 +36,6 @@ size = Vector2(128, 125)
 
 [node name="test_enemy" type="CharacterBody2D" unique_id=920223668 groups=["enemy"]]
 script = SubResource("GDScript_ga0ge")
-fucked_scale_multiplier = 1.02
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=809458893]
 z_index = 1
@@ -68,3 +46,19 @@ shape = SubResource("RectangleShape2D_wyeb1")
 position = Vector2(0, 3)
 scale = Vector2(0.28635347, 0.29530203)
 texture = ExtResource("1_ga0ge")
+
+[node name="StateMachine_e" type="Node2D" parent="." unique_id=1563372105 node_paths=PackedStringArray("default_state")]
+script = ExtResource("2_8cbae")
+default_state = NodePath("StateBase_e")
+
+[node name="StateBase_e" type="Node2D" parent="StateMachine_e" unique_id=2125126615]
+script = ExtResource("3_m1q75")
+
+[node name="StateIdle_e" type="Node2D" parent="StateMachine_e" unique_id=1639778419]
+script = ExtResource("4_bbhr2")
+
+[node name="StateAir_e" type="Node2D" parent="StateMachine_e" unique_id=620687562]
+script = ExtResource("4_nndku")
+
+[node name="StateGetFucked" type="Node2D" parent="StateMachine_e" unique_id=463507799]
+script = ExtResource("5_bbhr2")
