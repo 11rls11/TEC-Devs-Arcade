@@ -34,6 +34,7 @@ var returning := false
 var base_rot : float
 var caller_group : String
 var caller : CharacterBody2D
+var init_dir : int = 1
 
 #endregion
 
@@ -42,6 +43,7 @@ func _ready() -> void:
 	facing_direction.rotation = base_rot
 	print(base_rot)
 	origin = global_position
+	
 	
 	
 
@@ -67,6 +69,9 @@ func _process(delta: float) -> void:
 	if  abs(origin.x - global_position.x) >= base_distance:
 		returning = true
 		
+			
+			
+		
 		
 
 
@@ -78,27 +83,43 @@ func get_to_point(delta, direction):
 	elapsedTimeAfter = 0
 	velocity.x =  direction.x * Speed
 
+var on_first_run := false
 func after_point(delta, direction):
+	
 	if !Input.is_action_pressed("throw"):
 		var target_direction : Vector2 = (return_to - global_position).normalized()
 		#print(target_direction)
+		#var y_rot_influence : float
+		
+	#	if return_to.y - global_position.y > 0:
+	#		y_rot_influence = 1
+	#	elif return_to.y - global_position.y <= 0 and return_to.x - global_position.x > 0:
+	#		y_rot_influence = -1
+	#		print("active")
+	#	else:
+	#		y_rot_influence = 1
+		
+		
+		var target_angle : float = fposmod(target_direction.angle() * init_dir,  6.28319) * init_dir 
+		#print(y_rot_influence)
 
-		var target_angle : float = fposmod(target_direction.angle() * sign(target_direction.x),  6.28319) * sign(target_direction.x)
-		#print(target_angle)
-
-		facing_direction.rotation = move_toward(facing_direction.rotation, target_angle, (rot_accel) * delta)
+		facing_direction.rotation = lerp_angle(facing_direction.rotation, target_angle, rot_accel * delta)
 		#print(facing_direction.rotation)
 
 		
 		velocity.y = move_toward(velocity.y, direction.y * Speed, accel * 1000 * delta)
 		velocity.x = move_toward(velocity.x, direction.x * Speed, accel  * 1000 * delta)
-		#print(velocity)
+		if return_to.y == global_position.y :
+			facing_direction.rotation = fposmod(target_direction.angle() * init_dir,  6.28319)  * init_dir
+			#print(init_dir)
+			#print(velocity)
 	elif elapsedTimeAfter > 1.5:
 		var target_direction : Vector2 = (return_to - global_position).normalized()
 		var target_angle : float = fposmod(target_direction.angle() * sign(target_direction.x),  6.28319) * sign(target_direction.x)
 		#print(target_angle)
-
-		facing_direction.rotation = move_toward(facing_direction.rotation, target_angle, (rot_accel) * delta)
+		
+		
+		facing_direction.rotation = move_toward(facing_direction.rotation, target_angle , (rot_accel) * delta)
 		#print(facing_direction.rotation)
 
 		
@@ -107,11 +128,13 @@ func after_point(delta, direction):
 		
 	else:
 		velocity.x = move_toward(velocity.x, 0.0, delta*9)
+	on_first_run = true
 
 func _on_return():
-	if global_position.y > return_to.y:
+	if global_position.y > return_to.y + abs(has_returned_range/4) or Input.is_action_pressed("throw") :
 		var caller_machine = caller.get_node("StateMachine")
 		caller_machine._change_to("State_suitcase_bounce")
+	caller.suitcase_out = false
 	queue_free()
 
 func _on_contact(body):
@@ -124,7 +147,7 @@ func _on_contact(body):
 	var turn_angle_to_vector = Vector2.from_angle(facing_direction.rotation)
 	var bouncer = turn_angle_to_vector.bounce(facing_direction.get_collision_normal())
 	
-	facing_direction.rotation =  fposmod( bouncer.angle() * sign(bouncer.x),  6.28319) * sign(bouncer.x)
+	facing_direction.rotation =  fposmod( bouncer.angle() * init_dir,  6.28319) * init_dir
 	velocity *= -bouncer
 	#print(velocity)
 	

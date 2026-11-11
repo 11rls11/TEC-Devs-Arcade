@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://dhiv0e2iexmaf" path="res://player_specific/state_air.gd" id="7_2i738"]
 [ext_resource type="Script" uid="uid://cswhshs1jnctp" path="res://player_specific/state_jump.gd" id="8_2i738"]
 [ext_resource type="Script" uid="uid://kc8i7lffmnvq" path="res://player_specific/state_suitcase_bounce.gd" id="9_sb3ko"]
+[ext_resource type="Script" uid="uid://cg61jc57yeynv" path="res://player_specific/state_dive.gd" id="10_fahbr"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e6km3"]
 atlas = ExtResource("2_aygf1")
@@ -64,3 +65,7 @@ Bounce_force = -1300
 [node name="State_suitcase_bounce" type="Node2D" parent="StateMachine" unique_id=121429783]
 script = ExtResource("9_sb3ko")
 metadata/_custom_type_script = "uid://dhiv0e2iexmaf"
+
+[node name="StateDive" type="Node2D" parent="StateMachine" unique_id=1658761132]
+script = ExtResource("10_fahbr")
+input_correction_strength = 1.5

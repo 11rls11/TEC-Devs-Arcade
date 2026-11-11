@@ -9,7 +9,7 @@ script = ExtResource("1_467x8")
 Speed = 10
 accel = 0.05
 base_distance = 150
-rot_accel = 10.0
+rot_accel = 15.0
 has_returned_range = 20.0
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1161140464]

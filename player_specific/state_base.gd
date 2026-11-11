@@ -17,6 +17,10 @@ class_name StateBase extends Node2D
 @export_group("air")
 @export var air_speed := 300
 @export var air_accel := 1.5
+@export_subgroup("dive")
+@export var dive_boost := -300
+@export var dive_velocity := 500
+@export var dive_accel := 2.5
 
 
 
@@ -42,11 +46,14 @@ const  suitcase : PackedScene = preload("uid://83lbwqnoyfwg")
 
 var state_machine:StateMachine
 
+
+
 #region ________________________________ process __________________________________________
 
 var has_second_jumped = false
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-var direction = 1
+var direction := 0
+
 var input_dir
 
 var cayote_timer := 0.0
@@ -67,8 +74,10 @@ func on_process(delta):
 
 func _get_directional_input(flip_with_input_direction: bool):
 	input_dir = Input.get_axis("move_left","move_right") 
-	if input_dir != 0 and flip_with_input_direction == true:
+	if input_dir != 0:
 		direction = sign(input_dir)
+		if flip_with_input_direction == true:
+			controlled_node.dir = direction
 	
 
 func _handle_jump():
@@ -76,15 +85,18 @@ func _handle_jump():
 	state_machine._change_to("StateJump")
 
 func _call_suitcase():
-	if not Input.is_action_just_pressed("throw"):
+	if not Input.is_action_just_pressed("throw") or controlled_node.suitcase_out == true:
 		return
 	var boomerang = suitcase.instantiate()
 	
 	boomerang.caller_group = "player1"
-	if direction > 0:
+	print("direction ", direction)
+	boomerang.init_dir = -direction
+	if direction == 1:
 		boomerang.base_rot = 0
-	else:
+	elif direction == -1:
 		boomerang.base_rot = -PI
 	boomerang.global_position = global_position
 	get_tree().current_scene.add_child(boomerang)
+	controlled_node.suitcase_out = true
 		

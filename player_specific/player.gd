@@ -13,7 +13,8 @@ extends CharacterBody2D
 #endregion
 
 #region ________________________ runtime ________________________________
-
+var dir := 1
+var suitcase_out := false
 
 #endregion
 

@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://s14mqocmnqif" path="res://enemies_specific/state_base_e.gd" id="3_m1q75"]
 [ext_resource type="Script" uid="uid://b5jmke74poif5" path="res://enemies_specific/state_idle_e.gd" id="4_bbhr2"]
 [ext_resource type="Script" uid="uid://etigmwbpewep" path="res://enemies_specific/state_air_e.gd" id="4_nndku"]
+[ext_resource type="Script" uid="uid://cqwayyfb5qje7" path="res://enemies_specific/state_huggers.gd" id="5_8nebq"]
 [ext_resource type="Script" uid="uid://dpvtmsi2pya75" path="res://enemies_specific/state_get_fucked.gd" id="5_bbhr2"]
 
 [sub_resource type="GDScript" id="GDScript_ga0ge"]
@@ -56,6 +57,11 @@ script = ExtResource("3_m1q75")
 
 [node name="StateIdle_e" type="Node2D" parent="StateMachine_e" unique_id=1639778419]
 script = ExtResource("4_bbhr2")
+
+[node name="StateHuggers" type="Node2D" parent="StateMachine_e" unique_id=1816105459]
+script = ExtResource("5_8nebq")
+ground_drag = null
+fucked_scale_multiplier = null
 
 [node name="StateAir_e" type="Node2D" parent="StateMachine_e" unique_id=620687562]
 script = ExtResource("4_nndku")

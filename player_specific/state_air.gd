@@ -13,11 +13,12 @@ func start():
 	
 func on_process(delta):
 	
-	_get_directional_input(false)
+	_get_directional_input(true)
 	_call_suitcase()
 	
 	_apply_gravity(delta)
 	_get_jump_buffer(delta)
+	_get_dive()
 	if controlled_node.is_on_floor():
 		state_machine._change_to("StateIdle")
 	
@@ -31,3 +32,8 @@ func _get_jump_buffer(delta):
 		jump_buffer_timer = jump_buffer_duration
 	if jump_buffer_timer >= 0.0:
 		jump_buffer_timer -= delta
+
+func _get_dive():
+	#print(direction)
+	if Input.is_action_just_pressed("jump"):
+		state_machine._change_to("StateDive")

@@ -7,4 +7,16 @@ func start():
 	
 func on_process(delta):
 	
-	state_machine._change_to("StateAir")
+	_get_directional_input(true)
+	_call_suitcase()
+	
+	_apply_gravity(delta)
+	_get_jump_buffer(delta)
+	_get_dive()
+	if controlled_node.is_on_floor():
+		state_machine._change_to("StateIdle")
+	
+	controlled_node.velocity.x = move_toward(controlled_node.velocity.x, air_speed * input_dir, (air_accel * 1000) * delta )
+	if Input.is_action_just_released("jump") or controlled_node.velocity.y > -100:
+		controlled_node.velocity.y = JUMP_VELOCITY  / 6
+		state_machine._change_to("StateAir")

@@ -1,8 +1,17 @@
 @icon("uid://sps1xh8x4ylo")
 class_name StateIdle_e extends StateBase_e
 
+var players
+var player1
+var player2
 # Called when the node enters the scene tree for the first time.
 func start():
+	players = get_tree().get_nodes_in_group("player")
+	for i in players:
+		if not player1 :
+			player1 = i
+		elif not player2:
+			player2 = i
 	pass # Replace with function body.
 
 
@@ -15,3 +24,6 @@ func on_process(delta: float) -> void:
 	# Only runs if the enemy IS safely on the floor
 	controlled_node.velocity.x = move_toward(controlled_node.velocity.x, 0, (ground_drag * 1000) * delta)
 	controlled_node.velocity.y = 0
+
+func _GET_THE_FUCKER():
+	pass
