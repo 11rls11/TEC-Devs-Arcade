@@ -7,6 +7,9 @@ class_name StateMachine extends Node
 var player_sprite : AnimatedSprite2D 
 var player_collision : CollisionShape2D 
 
+@onready var animation_player: AnimationPlayer = $"../AnimationPlayer"
+@export var fallback_animation := "StateIdle"
+
 #endregion
 
 
@@ -64,6 +67,18 @@ func _change_to(new_state: String) -> void:
 		current_state.end()
 	
 	# Guardar el estado anterior antes de cambiar
+
 	previous_state = current_state
 	current_state = get_node(new_state)
+	if animation_player.current_animation != current_state.name:
+		if String(current_state.name).begins_with("StateAttack"):
+			animation_player.play("StateAttack")
+			print("ATTACK!")
+		elif animation_player.has_animation(current_state.name):
+			animation_player.play(current_state.name)
+		elif animation_player.has_animation(fallback_animation):
+			animation_player.play(fallback_animation)
+		else:
+			push_warning("Neither state animation '%s' nor fallback '%s' found." % [current_state.name, fallback_animation])
+			
 	_state_start()

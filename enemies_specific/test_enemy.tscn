@@ -7,11 +7,17 @@
 [ext_resource type="Script" uid="uid://etigmwbpewep" path="res://enemies_specific/state_air_e.gd" id="4_nndku"]
 [ext_resource type="Script" uid="uid://cqwayyfb5qje7" path="res://enemies_specific/state_huggers.gd" id="5_8nebq"]
 [ext_resource type="Script" uid="uid://dpvtmsi2pya75" path="res://enemies_specific/state_get_fucked.gd" id="5_bbhr2"]
+[ext_resource type="Script" uid="uid://dqgquq1gn3k57" path="res://enemies_specific/state_hit.gd" id="8_gjmii"]
 
 [sub_resource type="GDScript" id="GDScript_ga0ge"]
 script/source = "extends CharacterBody2D
 
+@export_category(\"damage stuff\")
+@export_group(\"damage\")
+@export var contact_damage := 1
 
+@export_group(\"Health\")
+@export var Max_HP = 1
 
 
 #endregion
@@ -20,16 +26,28 @@ script/source = "extends CharacterBody2D
 
 var got_fucked := false
 var dissapear := false
-
+var HP := 0
 #endregion
 
 var gravity = ProjectSettings.get_setting(\"physics/2d/default_gravity\")
+
+
 
 func _physics_process(delta: float) -> void:
 	#if has_node(\"StateMachine_e\"): # Make sure this matches your node's layout name
 	#	$StateMachine_e._physics_process(delta)
 	#	print(\"does have that shit\")
 	move_and_slide()
+	for i in get_slide_collision_count():
+			var collision := get_slide_collision(i)
+			var collider := collision.get_collider()
+			
+			# Verify the collider is a Node (TileMaps/PhysicsBodies are Nodes)
+			if collider is Node:
+				# Option A: Check for a specific group (Recommended)
+				if collider.is_in_group(\"player\"):
+					PlayerHurtmanager._player_hurt(collider,contact_damage)
+				
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wyeb1"]
@@ -39,7 +57,6 @@ size = Vector2(128, 125)
 script = SubResource("GDScript_ga0ge")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=809458893]
-z_index = 1
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_wyeb1")
 
@@ -68,3 +85,6 @@ script = ExtResource("4_nndku")
 
 [node name="StateGetFucked" type="Node2D" parent="StateMachine_e" unique_id=463507799]
 script = ExtResource("5_bbhr2")
+
+[node name="StateHit_e" type="Node2D" parent="StateMachine_e" unique_id=380977848]
+script = ExtResource("8_gjmii")

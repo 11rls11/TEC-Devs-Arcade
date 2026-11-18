@@ -15,7 +15,7 @@ func on_process(delta):
 	
 	_get_directional_input(true)
 	_call_suitcase()
-	
+	_call_attack()
 	_apply_gravity(delta)
 	_get_jump_buffer(delta)
 	_get_dive()
@@ -25,7 +25,12 @@ func on_process(delta):
 	controlled_node.velocity.x = move_toward(controlled_node.velocity.x, air_speed * input_dir, (air_accel * 1000) * delta )
 
 func _apply_gravity(delta):
-	controlled_node.velocity.y += gravity * gravity_multiplier * delta
+	
+	if controlled_node.velocity.y > Jump_cutoff_vel:
+		controlled_node.velocity.y += gravity * gravity_multiplier * delta
+	else:
+		print(controlled_node.velocity.y , Jump_cutoff_vel)
+		controlled_node.velocity.y += gravity * delta 
 
 func _get_jump_buffer(delta):
 	if Input.is_action_just_pressed("jump"):

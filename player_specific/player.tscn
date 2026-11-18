@@ -10,6 +10,9 @@
 [ext_resource type="Script" uid="uid://cswhshs1jnctp" path="res://player_specific/state_jump.gd" id="8_2i738"]
 [ext_resource type="Script" uid="uid://kc8i7lffmnvq" path="res://player_specific/state_suitcase_bounce.gd" id="9_sb3ko"]
 [ext_resource type="Script" uid="uid://cg61jc57yeynv" path="res://player_specific/state_dive.gd" id="10_fahbr"]
+[ext_resource type="Script" uid="uid://b37be2gvxsxmc" path="res://player_specific/state_attack.gd" id="11_7da5h"]
+[ext_resource type="Script" uid="uid://c7idyukc13vd8" path="res://player_specific/state_attack_air.gd" id="12_y8er5"]
+[ext_resource type="Script" uid="uid://dg2isbm0gx3w7" path="res://player_specific/state_hit.gd" id="13_364qs"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e6km3"]
 atlas = ExtResource("2_aygf1")
@@ -28,7 +31,96 @@ animations = [{
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hdrrh"]
 
-[node name="player" type="CharacterBody2D" unique_id=1599413973 groups=["player1"]]
+[sub_resource type="Animation" id="Animation_y8er5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("hitbox/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_364qs"]
+resource_name = "StateAttack"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("hitbox/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_c7ejc"]
+resource_name = "StateDive"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("hitbox/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_h6jx7"]
+resource_name = "StateHit"
+length = 0.19999999999999998
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("hitbox/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_7da5h"]
+resource_name = "StateIdle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("hitbox/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y8er5"]
+_data = {
+&"RESET": SubResource("Animation_y8er5"),
+&"StateAttack": SubResource("Animation_364qs"),
+&"StateDive": SubResource("Animation_c7ejc"),
+&"StateHit": SubResource("Animation_h6jx7"),
+&"StateIdle": SubResource("Animation_7da5h")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wyeb1"]
+size = Vector2(20, 28)
+
+[node name="player" type="CharacterBody2D" unique_id=1599413973 groups=["player", "player1"]]
 script = ExtResource("1_j4r2i")
 
 [node name="Animated_superior" type="AnimatedSprite2D" parent="." unique_id=138743295]
@@ -44,13 +136,19 @@ default_state = NodePath("StateBase")
 
 [node name="StateBase" type="Node2D" parent="StateMachine" unique_id=617589259]
 script = ExtResource("4_acy36")
+JUMP_VELOCITY = -1000.0
+Jump_cutoff_vel = -2000
 air_accel = 100.0
+Bounce_force = -6
 
 [node name="StateJump" type="Node2D" parent="StateMachine" unique_id=1054923094]
 script = ExtResource("8_2i738")
+JUMP_VELOCITY = -600.0
+Jump_cutoff_vel = -500
 
 [node name="StateAir" type="Node2D" parent="StateMachine" unique_id=1528962312]
 script = ExtResource("7_2i738")
+gravity_multiplier = 4.0
 
 [node name="StateIdle" type="Node2D" parent="StateMachine" unique_id=520726146]
 script = ExtResource("5_ex4x1")
@@ -69,3 +167,23 @@ metadata/_custom_type_script = "uid://dhiv0e2iexmaf"
 [node name="StateDive" type="Node2D" parent="StateMachine" unique_id=1658761132]
 script = ExtResource("10_fahbr")
 input_correction_strength = 1.5
+
+[node name="StateAttack_Ground" type="Node2D" parent="StateMachine" unique_id=1171616513]
+script = ExtResource("11_7da5h")
+
+[node name="StateAttack_Air" type="Node2D" parent="StateMachine" unique_id=904894285]
+script = ExtResource("12_y8er5")
+
+[node name="StateHit" type="Node2D" parent="StateMachine" unique_id=1961973909]
+script = ExtResource("13_364qs")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2570552]
+libraries/ = SubResource("AnimationLibrary_y8er5")
+
+[node name="hitbox" type="Area2D" parent="." unique_id=1766864776]
+position = Vector2(20, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox" unique_id=2033636761]
+shape = SubResource("RectangleShape2D_wyeb1")
+
+[connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]

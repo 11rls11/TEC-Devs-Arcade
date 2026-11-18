@@ -36,6 +36,7 @@ var caller_group : String
 var caller : CharacterBody2D
 var init_dir : int = 1
 
+var damage = 0
 #endregion
 
 func _ready() -> void:
@@ -139,10 +140,12 @@ func _on_return():
 
 func _on_contact(body):
 	var body_machine = body.get_node("StateMachine_e")
-	body_machine._change_to("StateGetFucked")
+	body.HP -= damage
+	PlayerHitmanager._trigger_shake(damage)
+	body_machine._change_to("StateHit_e")
 	#body.position.y += -0.1
 	print(velocity)
-	body.velocity = velocity * 10 + Vector2(0.0, -300)
+	body.velocity = velocity * 10 + Vector2(0.0, -500)
 	returning = true
 	var turn_angle_to_vector = Vector2.from_angle(facing_direction.rotation)
 	var bouncer = turn_angle_to_vector.bounce(facing_direction.get_collision_normal())

@@ -10,10 +10,11 @@ func start():
 	
 func on_process(delta):
 	_call_suitcase()
+	_call_attack()
 	_get_directional_input(true)
 	if not controlled_node.is_on_floor():
 		_handle_unflooring(delta)
-	if Input.is_action_just_pressed("jump"):
+	if Input.is_action_just_pressed("jump") or jump_buffer_timer > 0.0:
 		_handle_jump()
 	if input_dir != 0:
 		controlled_node.velocity.x = move_toward(controlled_node.velocity.x, ground_speed * input_dir, (ground_accel * 1000) * delta )

@@ -4,7 +4,9 @@ class_name StateBase extends Node2D
 #region _________________________________ exports ______________________________________________
 @export_category("general_mobility")
 @export var SPEED = 300.0
+@export_group("jump")
 @export var JUMP_VELOCITY = -400.0
+@export var Jump_cutoff_vel := -100
 
 @export_category("state specific")
 @export_group("ground")
@@ -90,13 +92,22 @@ func _call_suitcase():
 	var boomerang = suitcase.instantiate()
 	
 	boomerang.caller_group = "player1"
+	boomerang.damage = controlled_node.current_damage
 	print("direction ", direction)
 	boomerang.init_dir = -direction
-	if direction == 1:
+	if controlled_node.dir == 1:
 		boomerang.base_rot = 0
-	elif direction == -1:
+	elif controlled_node.dir == -1:
 		boomerang.base_rot = -PI
 	boomerang.global_position = global_position
 	get_tree().current_scene.add_child(boomerang)
 	controlled_node.suitcase_out = true
 		
+func _call_attack():
+	if controlled_node.suitcase_out == true:
+		return
+	if Input.is_action_just_pressed("Attack_p1"):
+		if controlled_node.is_on_floor():
+			state_machine._change_to("StateAttack_Ground")
+		else:
+			state_machine._change_to("StateAttack_Air")

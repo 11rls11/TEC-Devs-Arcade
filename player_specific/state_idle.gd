@@ -17,6 +17,7 @@ func start():
 func on_process(delta):
 	_get_directional_input(true)
 	_call_suitcase()
+	_call_attack()
 	if not controlled_node.is_on_floor():
 		_handle_unflooring(delta)
 	
@@ -24,7 +25,7 @@ func on_process(delta):
 	if input_dir != 0:
 		state_machine._change_to("State_walking_ground")
 	else:
-		controlled_node.velocity.x = move_toward(controlled_node.velocity.x, 0.0 , (ground_speed * 1000) * delta )
+		controlled_node.velocity.x = move_toward(controlled_node.velocity.x, 0.0 , (ground_speed * 10) * delta )
 		
 	if Input.is_action_just_pressed("jump") or jump_buffer_timer > 0.0:
 		_handle_jump()
@@ -33,7 +34,7 @@ func _handle_unflooring(delta):
 	if cayote_timer >= 0 :
 		controlled_node.velocity.y = 0.0
 		cayote_timer -= delta
-		print("cayote time")
+		#print("cayote time")
 		return
 	
 	state_machine._change_to("StateAir")
