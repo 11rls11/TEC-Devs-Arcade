@@ -33,12 +33,12 @@ func _apply_gravity(delta):
 		controlled_node.velocity.y += gravity * delta 
 
 func _get_jump_buffer(delta):
-	if Input.is_action_just_pressed("jump"):
+	if Input.is_action_just_pressed(controlled_node.inputs.jump):
 		jump_buffer_timer = jump_buffer_duration
 	if jump_buffer_timer >= 0.0:
 		jump_buffer_timer -= delta
 
 func _get_dive():
 	#print(direction)
-	if Input.is_action_just_pressed("jump"):
+	if Input.is_action_just_pressed(controlled_node.inputs.jump):
 		state_machine._change_to("StateDive")

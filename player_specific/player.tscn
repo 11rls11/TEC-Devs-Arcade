@@ -79,7 +79,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_h6jx7"]
 resource_name = "StateHit"
-length = 0.19999999999999998
+length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -120,7 +120,7 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wyeb1"]
 size = Vector2(20, 28)
 
-[node name="player" type="CharacterBody2D" unique_id=1599413973 groups=["player", "player1"]]
+[node name="player" type="CharacterBody2D" unique_id=1599413973 groups=["player"]]
 script = ExtResource("1_j4r2i")
 
 [node name="Animated_superior" type="AnimatedSprite2D" parent="." unique_id=138743295]
@@ -162,11 +162,13 @@ Bounce_force = -1300
 
 [node name="State_suitcase_bounce" type="Node2D" parent="StateMachine" unique_id=121429783]
 script = ExtResource("9_sb3ko")
+Bounce_force = -550
 metadata/_custom_type_script = "uid://dhiv0e2iexmaf"
 
 [node name="StateDive" type="Node2D" parent="StateMachine" unique_id=1658761132]
 script = ExtResource("10_fahbr")
-input_correction_strength = 1.5
+dive_boost = -400
+dive_velocity = 600
 
 [node name="StateAttack_Ground" type="Node2D" parent="StateMachine" unique_id=1171616513]
 script = ExtResource("11_7da5h")

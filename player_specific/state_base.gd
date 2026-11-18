@@ -75,7 +75,7 @@ func on_process(delta):
 	
 
 func _get_directional_input(flip_with_input_direction: bool):
-	input_dir = Input.get_axis("move_left","move_right") 
+	input_dir = Input.get_axis(controlled_node.inputs.move_left,controlled_node.inputs.move_right) 
 	if input_dir != 0:
 		direction = sign(input_dir)
 		if flip_with_input_direction == true:
@@ -87,7 +87,7 @@ func _handle_jump():
 	state_machine._change_to("StateJump")
 
 func _call_suitcase():
-	if not Input.is_action_just_pressed("throw") or controlled_node.suitcase_out == true:
+	if not Input.is_action_just_pressed(controlled_node.inputs.throw) or controlled_node.suitcase_out == true:
 		return
 	var boomerang = suitcase.instantiate()
 	
@@ -106,7 +106,7 @@ func _call_suitcase():
 func _call_attack():
 	if controlled_node.suitcase_out == true:
 		return
-	if Input.is_action_just_pressed("Attack_p1"):
+	if Input.is_action_just_pressed(controlled_node.inputs.attack):
 		if controlled_node.is_on_floor():
 			state_machine._change_to("StateAttack_Ground")
 		else:

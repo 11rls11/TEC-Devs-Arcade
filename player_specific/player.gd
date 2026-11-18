@@ -8,7 +8,7 @@ extends CharacterBody2D
 @export var push_force := Vector2(300, -300)
 
 
-
+var inputs: InputSet
 
 
 #region ________________________ on ready  ___________________________

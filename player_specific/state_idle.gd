@@ -27,7 +27,7 @@ func on_process(delta):
 	else:
 		controlled_node.velocity.x = move_toward(controlled_node.velocity.x, 0.0 , (ground_speed * 10) * delta )
 		
-	if Input.is_action_just_pressed("jump") or jump_buffer_timer > 0.0:
+	if Input.is_action_just_pressed(controlled_node.inputs.jump) or jump_buffer_timer > 0.0:
 		_handle_jump()
 
 func _handle_unflooring(delta):
